@@ -1,10 +1,9 @@
 ---
-title: This is a dummy blog posts
-date: '2022-06-01'
+title: This is a blog post on classification
+date: '2022-10-21'
 categories:
-  - '123'
-  - Second Tag
-description: 'This is a test post. In this post, I try out different functionalities'
+  - Classification
+description: 'This is a blog post on classification. Specifically, the SVM classifier is used.'
 execute:
   message: false
   warning: false
