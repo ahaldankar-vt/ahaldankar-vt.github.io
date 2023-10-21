@@ -1,10 +1,10 @@
 ---
-title: This is a dummy blog posts
+title: This is a blog post on regression. 
 date: '2022-06-01'
 categories:
   - '123'
   - Second Tag
-description: 'This is a test post. In this post, I try out different functionalities'
+description: 'This is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.' 
 execute:
   message: false
   warning: false
