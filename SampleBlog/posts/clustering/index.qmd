@@ -1,0 +1,13 @@
+---
+title: This is a blog post on clustering
+date: '2022-10-29'
+categories:
+  - Clustering
+description: 'This is a blog post on clustering.'
+execute:
+  message: false
+  warning: false
+editor_options:
+  chunk_output_type: console
+jupyter: python3
+---
