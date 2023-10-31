@@ -1,0 +1,13 @@
+---
+title: This is a blog post on anomaly detection. 
+date: '2023-10-31'
+categories:
+  - Anomaly Detection
+description: 'This is a blog post on anomaly detection. Specifically, we will analyze the DBSCAN algorithm.'
+execute:
+  message: false
+  warning: false
+editor_options:
+  chunk_output_type: console
+jupyter: python3
+---
