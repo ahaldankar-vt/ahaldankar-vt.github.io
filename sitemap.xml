@@ -2,18 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ahaldankar-vt.github.io/index.html</loc>
-    <lastmod>2023-10-29T15:02:30.472Z</lastmod>
+    <lastmod>2023-11-03T19:21:10.065Z</lastmod>
   </url>
   <url>
-    <loc>https://ahaldankar-vt.github.io/posts/classification/index.html</loc>
-    <lastmod>2023-10-29T15:02:29.525Z</lastmod>
+    <loc>https://ahaldankar-vt.github.io/posts/prob_theory/index.html</loc>
+    <lastmod>2023-11-03T19:21:08.921Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahaldankar-vt.github.io/posts/clustering/index.html</loc>
+    <lastmod>2023-11-03T19:21:02.339Z</lastmod>
   </url>
   <url>
     <loc>https://ahaldankar-vt.github.io/about.html</loc>
-    <lastmod>2023-10-29T15:02:28.201Z</lastmod>
+    <lastmod>2023-11-03T19:20:54.553Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahaldankar-vt.github.io/posts/classification/index.html</loc>
+    <lastmod>2023-11-03T19:20:56.515Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahaldankar-vt.github.io/posts/anomaly_detection/index.html</loc>
+    <lastmod>2023-11-03T19:21:05.638Z</lastmod>
   </url>
   <url>
     <loc>https://ahaldankar-vt.github.io/posts/regression/index.html</loc>
-    <lastmod>2023-10-29T15:02:30.016Z</lastmod>
+    <lastmod>2023-11-03T19:21:09.431Z</lastmod>
   </url>
 </urlset>

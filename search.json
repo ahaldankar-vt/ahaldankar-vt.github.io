@@ -4,7 +4,14 @@
     "href": "index.html",
     "title": "SampleBlog",
     "section": "",
-    "text": "This is a blog post on classification\n\n\n\n\n\n\n\nClassification\n\n\n\n\nThis is a blog post on classification. Specifically, the SVM classifier is used.\n\n\n\n\n\n\nOct 21, 2022\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on regression.\n\n\n\n\n\n\n\n123\n\n\nSecond Tag\n\n\n\n\nThis is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.\n\n\n\n\n\n\nJun 1, 2022\n\n\n\n\n\n\nNo matching items\n\nReusehttps://creativecommons.org/licenses/by-sa/4.0/"
+    "text": "This is a blog post on probability theory and random variables.\n\n\n\n\n\n\n\nProbability Theory, Random Variables, Naive Bayes\n\n\n\n\nThis is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.\n\n\n\n\n\n\nNov 3, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on anomaly detection.\n\n\n\n\n\n\n\nAnomaly Detection\n\n\n\n\nThis is a blog post on anomaly detection. Specifically, we will analyze the DBSCAN algorithm.\n\n\n\n\n\n\nOct 31, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on clustering\n\n\n\n\n\n\n\nClustering\n\n\n\n\nThis is a blog post on clustering.\n\n\n\n\n\n\nOct 29, 2022\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on classification\n\n\n\n\n\n\n\nClassification\n\n\n\n\nThis is a blog post on classification. Specifically, the SVM classifier is used.\n\n\n\n\n\n\nOct 21, 2022\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on regression.\n\n\n\n\n\n\n\n123\n\n\nSecond Tag\n\n\n\n\nThis is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.\n\n\n\n\n\n\nJun 1, 2022\n\n\n\n\n\n\nNo matching items\n\nReusehttps://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
   },
   {
     "objectID": "posts/classification/index.html",
@@ -40,12 +47,5 @@
     "title": "This is a blog post on classification",
     "section": "",
     "text": "We have successfully performed a train-test split with 143 samples in the training set and 35 samples in the test set. Since we are dealing with a small dataset for multi-class classification, it might be helpful to use the SVM classifier.\n\nfrom sklearn.svm import SVC\n\n# Instantiate and fit on the training set. \nsvm_clf = SVC(random_state=42)\nsvm_clf.fit(X_train, y_train)\n\nSVC(random_state=42)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.SVCSVC(random_state=42)\n\n\n\n# Predict on the testing set. \npredictions = svm_clf.predict(X_test)\n\n\n# Now, let's evaluate the accuracy of the predictions. \nfrom sklearn.metrics import accuracy_score as accuracy\nround(accuracy(y_test, predictions), 2)\n\n0.71\n\n\nWe get an accuracy of around 71%. Let’s plot our results in a confusion matrix.\n\nfrom sklearn import metrics\nfrom sklearn.metrics import ConfusionMatrixDisplay\n\nconf_matrix = metrics.confusion_matrix(y_test, predictions)\ncm = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=[0,1,2])\ncm.plot()\n\n&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x7f1cab4ebf10&gt;"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog"
   }
 ]
