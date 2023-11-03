@@ -1,0 +1,13 @@
+---
+title: This is a blog post on probability theory and random variables. 
+date: '2023-11-03'
+categories:
+  - Probability Theory, Random Variables, Naive Bayes
+description: 'This is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.'
+execute:
+  message: false
+  warning: false
+editor_options:
+  chunk_output_type: console
+jupyter: python3
+---
