@@ -1,8 +1,8 @@
 ---
-title: This is a blog post on probability theory and random variables. 
+title: This is a blog post on probability theory and random variables.
 date: '2023-11-03'
 categories:
-  - Probability Theory, Random Variables, Naive Bayes
+  - 'Probability Theory, Random Variables, Naive Bayes'
 description: 'This is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.'
 execute:
   message: false
@@ -11,3 +11,145 @@ editor_options:
   chunk_output_type: console
 jupyter: python3
 ---
+
+In this blog post, we will investigate the Seaborn Attention dataset. Specifically, we will focus on using the Naive Bayes classifier to predict whether a test-taker is focused or not depending on their score. 
+
+# Get and Examine the Data
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+sns.get_dataset_names()
+attention_raw = sns.load_dataset('attention')
+attention_raw.head()
+```
+
+```{python}
+attention_raw.info()
+```
+
+Let's drop the Unnamed column, since it will not help with our analysis. 
+
+```{python}
+attention = attention_raw.drop("Unnamed: 0", axis=1)
+attention.head()
+```
+
+Let's explore the dataset and see if there are any missing/outlier values. 
+
+```{python}
+attention.isna().any().any()
+```
+
+```{python}
+attention.shape
+```
+
+```{python}
+#| scrolled: true
+[attention['subject'].min(), attention['subject'].max()]
+```
+
+```{python}
+[attention['solutions'].min(), attention['solutions'].max()]
+```
+
+```{python}
+[attention['score'].min(), attention['score'].max()]
+```
+
+It looks like there are 20 subjects total, who were given 3 different tests. From each of these tests, the score of the subjects was computed. The minimum score across all tests was 2.0, while the maximum score was 9.0. Presumably, the test was ranked on a scale of 1 to 10. 
+
+TODO: Find better documentation on this dataset. 
+
+# Visualizations
+
+Let's now visualize the attention dataset, by plotting the distribution of participant scores.
+
+```{python}
+sns.barplot(data=attention, x='subject', y='score');
+```
+
+It appears that some subjects performed better than others. Let's visualize which of the subjects were focused and which were distracted. 
+
+```{python}
+sns.barplot(data=attention, x='subject', y='score', hue='attention');
+```
+
+It appears that, on average, focused subjects appeared to perform better than non-focused subjects. Let's confirm this hypothesis by computing the average scores for the divided and focused groups. 
+
+```{python}
+avg_scores = pd.DataFrame(attention.groupby('attention').mean()['score'])
+avg_scores
+```
+
+Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 6.8. It appears that the average test score for focused users is almost 2 points higher than that of distracted users.  
+
+# Naive Bayes Classifier
+
+Let's now use a Naive Bayes classifier to predict whether a participant is distracted or not based on their score. We can drop the other columns, since they won't be relevant.  
+
+```{python}
+#| collapsed: true
+attention_nb = attention[['attention', 'score']]
+attention_nb.head()
+```
+
+Next, perform a train-test split. Since the dataset is small, let's choose 80% of the samples to be in the training set and 20% of the samples to be in the test set. 
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+X = attention_nb[['score']]
+y = attention_nb['attention']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+```
+
+```{python}
+X_train.shape
+X_test.shape
+y_train.shape
+y_test.shape
+```
+
+Now, let's instantiate the model and fit the data to the model. We will use a Gaussian Naive Bayes classifier, which assumes that the distribution of continuous features is Gaussian. This appears to be a reasonable assumption in the case of the test scores. 
+
+```{python}
+from sklearn.naive_bayes import GaussianNB
+
+nb_gauss = GaussianNB()
+nb_gauss.fit(X_train, y_train);
+```
+
+Let's evaluate the accuracy on our testing set. 
+
+```{python}
+predictions = nb_gauss.predict(X_test)
+```
+
+```{python}
+from sklearn.metrics import accuracy_score as accuracy
+round(accuracy(y_test, predictions), 2)
+```
+
+```{python}
+predictions
+```
+
+75% is actually quite good, considering how few samples were used to train the model. We can plot a confusion matrix to get a better sense for which samples the model misclassified. 
+
+```{python}
+from sklearn import metrics
+from sklearn.metrics import ConfusionMatrixDisplay
+
+labels_arr = ['divided', 'focused']
+conf_matrix = metrics.confusion_matrix(y_test, predictions, labels=labels_arr)
+cm = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=['divided', 'focused'])
+cm.plot();
+```
+
+It appears that the Gaussian NB classifier over-predicted samples as being focused. The three samples in the upper right quadrant were predicted as being focused, but were in fact divided. 
+

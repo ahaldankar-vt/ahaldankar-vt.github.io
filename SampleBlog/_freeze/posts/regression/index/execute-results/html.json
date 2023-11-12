@@ -1,7 +1,7 @@
 {
-  "hash": "565f5c50462290c7a8e286c9ffbcd465",
+  "hash": "0ef4f5e22428df7e11445fb460eda6d1",
   "result": {
-    "markdown": "---\ntitle: This is a dummy blog posts\ndate: '2022-06-01'\ncategories:\n  - '123'\n  - Second Tag\ndescription: 'This is a test post. In this post, I try out different functionalities'\nexecute:\n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n",
+    "markdown": "---\ntitle: This is a blog post on regression.\ndate: '2022-06-01'\ncategories:\n  - '123'\n  - Second Tag\ndescription: This is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.\nexecute:\n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n",
     "supporting": [
       "index_files"
     ],

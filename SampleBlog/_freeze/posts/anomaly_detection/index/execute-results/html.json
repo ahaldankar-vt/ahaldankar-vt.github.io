@@ -1,0 +1,11 @@
+{
+  "hash": "4290bb5ee060124fa7bfa361b2d311ac",
+  "result": {
+    "markdown": "---\ntitle: This is a blog post on anomaly detection.\ndate: '2023-10-31'\ncategories:\n  - Anomaly Detection\ndescription: 'This is a blog post on anomaly detection. Specifically, we will analyze the DBSCAN algorithm.'\nexecute:\n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

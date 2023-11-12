@@ -29,9 +29,7 @@ wine_dataset = sklearn.datasets.load_wine()
 wine_df = pd.DataFrame(data=wine_dataset.data, columns=wine_dataset.feature_names)
 wine_df['labels'] = wine_dataset['target'] # Also add the labels associated with each sample
 
-# Added code - maybe take out. 
 X, y = wine_dataset.data, wine_dataset.target
-X
 ```
 
 ```{python}
@@ -89,6 +87,8 @@ np.random.seed(42)
 len(test_set)
 ```
 
+# Training and Predictions
+
 ## Train Test Split
 
 ```{python}
@@ -102,8 +102,6 @@ X_test.shape
 y_train.shape
 y_test.shape
 ```
-
-## Training and Predictions
 
 We have successfully performed a train-test split with 143 samples in the training set and 35 samples in the test set.
 Since we are dealing with a small dataset for multi-class classification, it might be helpful to use the SVM classifier. 
@@ -135,7 +133,68 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 conf_matrix = metrics.confusion_matrix(y_test, predictions)
 cm = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=[0,1,2])
-cm.plot()
+cm.plot();
 ```
 
+There are quite a few misclassified samples. Let's try using a different model to see if we get better results. We can use a Decision Tree. To avoid overfitting, let's set the max_depth to be 2. 
+
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+tree_clf = DecisionTreeClassifier(max_depth=2, random_state=42)
+tree_clf.fit(X, y)
+```
+
+Now, let's visualize the resulting dendrogram. 
+
+```{python}
+from sklearn.tree import export_graphviz
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+#Define the class labels. 
+class_labels_str = [str(elem) for elem in set(y)]
+wine_classes = np.array(class_labels_str)
+
+plt.figure(figsize=(12,12))
+
+
+dendro = sklearn.tree.plot_tree(tree_clf, filled=True, rounded=True, feature_names=wine_dataset.feature_names, 
+                                class_names=wine_classes, fontsize=12)
+
+plt.show()
+```
+
+From the dendrogram, we can see that there are less misclassifications than the support vector machine model. However, while the SVC model had 0 misclassifications for class 0, the DecisionTree misclassifies two samples as belonging to class 0. 
+
+# Additional Visualizations
+
+Let's now visualize wine samples based on the features picked out by the decision tree. We can indicate the true labels of the samples on the plot. 
+
+```{python}
+fig = plt.figure(figsize=(8,8))
+ax = fig.add_subplot(projection='3d')
+
+scatter = ax.scatter(wine_df['proline'], wine_df['od280/od315_of_diluted_wines'], wine_df['flavanoids'], marker='o', c=wine_df['labels'])
+ax.set_xlabel('proline')
+ax.set_ylabel('od280/od315')
+ax.set_zlabel('flavanoids')
+
+# Add a legend
+cbar = fig.colorbar(scatter, label="Class", orientation='horizontal')
+cbar.set_ticks([0, 1, 2])
+plt.show()
+```
+
+As we can see, it appears that these three features are good for distinguishing between the different wine classes. For the most part, the yellow, blue, and purple points don't overlap, although there are a few exceptions. 
+
+# Attributions
+
+1. https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html
+2. https://scikit-learn.org/stable/modules/svm.html
+3. https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+4. https://www.w3schools.com/python/python_ml_confusion_matrix.asp
+5. https://scikit-learn.org/stable/modules/classes.html#module-sklearn.tree
+6. https://stackoverflow.com/questions/59447378/sklearn-plot-tree-plot-is-too-small
+7. https://stackoverflow.com/questions/6715442/how-to-add-matplotlib-colorbar-ticks
+8. https://www.kaggle.com/code/cristianlapenta/wine-dataset-sklearn-machine-learning-project
 

@@ -1,0 +1,11 @@
+{
+  "hash": "4c9da1065efdb9e7f5fc907c848a27d6",
+  "result": {
+    "markdown": "---\ntitle: This is a blog post on clustering\ndate: '2022-10-29'\ncategories:\n  - Clustering\ndescription: This is a blog post on clustering.\nexecute:\n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

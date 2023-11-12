@@ -1,0 +1,11 @@
+{
+  "hash": "022064ad1a0bbeba43fd1963a05a2137",
+  "result": {
+    "markdown": "---\ntitle: This is a blog post on probability theory and random variables.\ndate: '2023-11-03'\ncategories:\n  - 'Probability Theory, Random Variables, Naive Bayes'\ndescription: 'This is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.'\nexecute:\n  message: false\n  warning: false\neditor_options:\n  chunk_output_type: console\n---\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
