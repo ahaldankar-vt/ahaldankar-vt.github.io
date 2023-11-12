@@ -8,7 +8,7 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/ahaldankar-vt/ahaldankar-vt.github.io/
       - icon: twitter
         href: https://twitter.com
 format:

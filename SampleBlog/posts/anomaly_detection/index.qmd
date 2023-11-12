@@ -181,6 +181,8 @@ Unsurprisingly, the samples are again split primarily based off of Principal Com
 We can use the trained Gaussian Mixture model in order to predict which observations are outliers. Visually, it appears that there should be at least 2 or 3 outliers. As a first attempt, we can set a density threshold at the 5th percentile. This would account for approximately 2-3 samples (0.05 * 51 = 2.55). All of the samples that fall below this threshold will be classified as outliers. 
 
 ```{python}
+import numpy as np
+
 densities = gm.score_samples(crashes_without_abbrev)
 density_threshold = np.percentile(densities, 5)
 anomalies_below = crashes_without_abbrev[densities < density_threshold]

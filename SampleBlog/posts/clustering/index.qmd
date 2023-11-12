@@ -136,6 +136,7 @@ Let's draw an elbow curve to visualize how the inertia drops as the number of cl
 
 ```{python}
 import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
 kmeans_per_k = [KMeans(n_clusters=k, random_state=42).fit(crashes_without_abbrev)
                 for k in range(1, 10)]
