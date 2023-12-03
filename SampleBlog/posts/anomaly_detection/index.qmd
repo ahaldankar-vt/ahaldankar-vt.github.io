@@ -115,11 +115,9 @@ outliers = [crashes2D.index[i] for i in range(len(dbscan.labels_)) if dbscan.lab
 outliers
 ```
 
-TODO: Update description. 
+The DBSCAN algorithm, with eps of 30 and min_samples of 2, identifies 6 states/districts above as outliers ('CT', 'DC', 'LA', etc.). 
 
-The DBSCAN algorithm, with eps of 26 and min_samples of 2, identifies the 8 states/districts above as outliers ('CT', 'DC', 'LA', etc.). 
-
-It seems that from the plot, some states, like MT, LA, and MD, are so far from the rest of the states that they are clear outliers. Additionally, even though states like 'MI' might appear close to the pink cluster, remember that the PCA plot is a 2-D representation of high-dimensional data. Therefore, 'MI' is actually probably much further away from the pink cluster in reality. 
+It seems that from the plot, some states, like LA and MD, are so far from the rest of the states that they are clear outliers. Additionally, even though 'CT' might appear close to the red cluster, remember that the PCA plot is a 2-D representation of high-dimensional data. Therefore, 'CT' is actually probably much further away from the red cluster in reality. 
 
 ## Gaussian Mixtures Algorithm
 
@@ -192,4 +190,13 @@ anomalies_below
 When using Gaussian Mixtures, Kentucky, Mississippi, and North Dakota are classified as outliers. This is an interesting result, since DBSCAN identified a different set of outliers.  
 
 One possible explanation, is that DBSCAN has difficulty with sparse points, while Gaussian Mixtures is more robust to sparse points. Gaussian Mixtures instead focuses on the probability that a sample belongs to a given cluster or not. Hence, the DBSCAN and Gaussian Mixtures algorithms may identify a different set of outliers in some cases. 
+
+# Attributions
+
+1. https://www.w3schools.com/python/pandas/ref_df_iterrows.asp
+2. https://en.wikipedia.org/wiki/DBSCAN
+3. https://sparkbyexamples.com/pandas/pandas-get-column-names/
+4. https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html
+5. https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture
+6. https://www.geeksforgeeks.org/gaussian-mixture-model/
 

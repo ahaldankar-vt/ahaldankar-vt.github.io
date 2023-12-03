@@ -2,8 +2,8 @@
 title: This is a blog post on regression.
 date: '2022-06-01'
 categories:
-  - '123'
-  - Second Tag
+  - Linear Regression
+  - Nonlinear Regression
 description: This is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.
 execute:
   message: false
@@ -86,7 +86,6 @@ This visualization gives us further insight into the price of the diamonds. It s
 Now, let's identify which factors most affect a given diamond's price. First, let's identify what factor the diamond carat (weight) has on price. We can visualize this relationship through a scatterplot. 
 
 ```{python}
-# TODO: Ask about this plot. 
 sns.scatterplot(data=diamonds, x="carat", y="price", size=1, alpha=0.6, edgecolor=None)
 ```
 
@@ -129,8 +128,6 @@ lin_reg1.coef_,lin_reg1.intercept_
 ```
 
 It appears that a diamond's carat value has a strong positive correlation with the diamond's price, while the diamond depth has a negative correlation with price. Let's see how well this linear model predicts the price of samples in the test set. 
-
-TODO: Add MSE metric
 
 ```{python}
 y_pred1 = lin_reg1.predict(X_test1)
@@ -242,8 +239,6 @@ tree_reg.score(X_test_nl, y_test_nl)
 
 Our decision tree has an R^2 value of around 83%. It looks like it performs similarly to the linear models we previously constructed. 
 
-TODO: Visualize Decision Tree Regressor model. 
-
 Now, let's try visualizing our predictions against the true labels. We'll just focus on the first 100 data points in order to make our plot less noisy. 
 
 ```{python}
@@ -260,4 +255,20 @@ plt.show()
 ```
 
 It seems that the predicted prices are more or less in the same range as the actual prices. However, it appears that the predictions tend to underestimate the price of expensive diamonds. 
+
+# Attributions
+
+1. https://www.educba.com/seaborn-datasets/
+2. https://www.kaggle.com/code/drvader/diamonds-dataset-exploration-and-regression
+3. https://github.com/Chinmayrane16/Diamonds-In-Depth-Analysis/blob/master/Diamonds.ipynb
+4. https://seaborn.pydata.org/generated/seaborn.scatterplot.html
+5. https://www.displayr.com/what-is-overplotting/
+6. https://www.geeksforgeeks.org/matplotlib-pyplot-colorbar-function-in-python/
+7. https://www.geeksforgeeks.org/3d-scatter-plotting-in-python-using-matplotlib/
+8. https://matplotlib.org/stable/gallery/mplot3d/scatter3d.html
+9. https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
+10. https://medium.com/the-code-monster/split-a-dataset-into-train-and-test-datasets-using-sk-learn-acc7fd1802e0
+11. https://corporatefinanceinstitute.com/resources/data-science/r-squared/
+12. https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html
+13. https://www.datatechnotes.com/2020/10/regression-example-with-decisiontreeregressor.html
 
