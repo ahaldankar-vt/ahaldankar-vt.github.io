@@ -99,6 +99,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -418,8 +420,19 @@ memory usage: 2.5+ KB</code></pre>
 </div>
 <p>Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 7. It appears that the average test score for focused users is about 2 points higher than that of distracted users.</p>
 </section>
-<section id="naive-bayes-classifier" class="level1">
-<h1>Naive Bayes Classifier</h1>
+<section id="naive-bayes-theory" class="level1">
+<h1>Naive Bayes Theory</h1>
+<p>Before getting hands-on experience using the Naive Bayes Classifier, it will be useful to explain the theory underlying this classifier.</p>
+<p>Naive Bayes is based on Bayes’ Rule, which can be stated as follows:</p>
+<p><span class="math display">\[\huge{P(A|B) = \frac{P(A) P(B|A)}{P(B)}}\]</span></p>
+<p>Where<br>
+P(A|B) is the probability that event A occurs given that event B has already occurred.<br>
+P(A) is the probability of event A occurring.<br>
+P(B|A) is the probability that event B occurs given that event A has already occurred.<br>
+P(B) is the probability of event B occurring.</p>
+<p>A Naive Bayes Classifier is designed to classify a given observation into one of several classes. In order to do so, the Naive Bayes Classifier relies heavily on Bayes theorem. Specifically, given a specific feature of the dataset, the Naive Bayes Classifier computes the probability of the observation falling into each of the different classes based on the value of the feature. Then, this classifier takes the highest such probability, and classifies the observation as falling into the class which matches with that largest probability.</p>
+<p>One important consideration is that the Naive Bayes classifier assumes that features are conditionally independent of one another. This means that when using multiple features in order to predict which class an observation falls into, the Naive Bayes Classifier assumes that none of the features depend on each other.</p>
+<p># Naive Bayes Classifier</p>
 <p>Let’s now use a Naive Bayes classifier to predict whether a participant is distracted or not based on their score. We can drop the other columns, since they won’t be relevant.</p>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>attention_nb <span class="op">=</span> attention[[<span class="st">'attention'</span>, <span class="st">'score'</span>]]</span>
@@ -535,6 +548,8 @@ memory usage: 2.5+ KB</code></pre>
 <li>https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html</li>
 <li>https://scikit-learn.org/stable/modules/naive_bayes.html</li>
 <li>https://www.datacamp.com/tutorial/naive-bayes-scikit-learn</li>
+<li>https://corporatefinanceinstitute.com/resources/data-science/bayes-theorem/</li>
+<li>https://www.bayesrulesbook.com/chapter-14</li>
 </ol>
 
 
