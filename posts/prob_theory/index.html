@@ -432,7 +432,9 @@ P(B|A) is the probability that event B occurs given that event A has already occ
 P(B) is the probability of event B occurring.</p>
 <p>A Naive Bayes Classifier is designed to classify a given observation into one of several classes. In order to do so, the Naive Bayes Classifier relies heavily on Bayes theorem. Specifically, given a specific feature of the dataset, the Naive Bayes Classifier computes the probability of the observation falling into each of the different classes based on the value of the feature. Then, this classifier takes the highest such probability, and classifies the observation as falling into the class which matches with that largest probability.</p>
 <p>One important consideration is that the Naive Bayes classifier assumes that features are conditionally independent of one another. This means that when using multiple features in order to predict which class an observation falls into, the Naive Bayes Classifier assumes that none of the features depend on each other.</p>
-<p># Naive Bayes Classifier</p>
+</section>
+<section id="naive-bayes-classifier" class="level1">
+<h1>Naive Bayes Classifier</h1>
 <p>Let’s now use a Naive Bayes classifier to predict whether a participant is distracted or not based on their score. We can drop the other columns, since they won’t be relevant.</p>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>attention_nb <span class="op">=</span> attention[[<span class="st">'attention'</span>, <span class="st">'score'</span>]]</span>
