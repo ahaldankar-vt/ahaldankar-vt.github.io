@@ -363,18 +363,19 @@ memory usage: 2.5+ KB</code></pre>
 <pre><code>[2.0, 9.0]</code></pre>
 </div>
 </div>
-<p>It looks like there are 20 subjects total, who were given 3 different tests. From each of these tests, the score of the subjects was computed. The minimum score across all tests was 2.0, while the maximum score was 9.0. Presumably, the test was ranked on a scale of 1 to 10.</p>
+<p>There are 20 subjects total, who were given 3 different tests. For each of these tests, the score of the subjects was computed. The minimum score across all tests was 2.0, while the maximum score was 9.0.</p>
 </section>
 <section id="visualizations" class="level1">
 <h1>Visualizations</h1>
-<p>Let’s now visualize the attention dataset, by plotting the distribution of participant scores.</p>
+<p>Let’s now visualize the attention dataset. We will first display a kde plot, that shows the probability distribution of the scores for the focused and divided groups.</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>attention, x<span class="op">=</span><span class="st">'subject'</span>, y<span class="op">=</span><span class="st">'score'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.displot(data<span class="op">=</span>attention, x<span class="op">=</span><span class="st">'score'</span>, kde<span class="op">=</span><span class="va">True</span>, hue<span class="op">=</span><span class="st">'attention'</span>, stat<span class="op">=</span><span class="st">'density'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-10-output-1.png" width="576" height="429"></p>
+<p><img src="index_files/figure-html/cell-10-output-1.png" width="579" height="470"></p>
 </div>
 </div>
-<p>It appears that some subjects performed better than others. Let’s visualize which of the subjects were focused and which were distracted.</p>
+<p>As can be seen by this plot, the probability that a divided participant performed very well (i.e.&nbsp;got a score of 7 or higher) is substantially less than the probability that a focused user performed very well. Also, the probability that focused users performed poorly (i.e.&nbsp;got a score of 4 or lower) is substantially smaller than the probability that distracted users performed poorly.</p>
+<p>It appears that focused users, on average, received better scores than non-focused users. Let’s try to better visualize this trend by plotting subjects and their corresponding scores, and color-coding whether the subject was focused or not.</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>attention, x<span class="op">=</span><span class="st">'subject'</span>, y<span class="op">=</span><span class="st">'score'</span>, hue<span class="op">=</span><span class="st">'attention'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -415,7 +416,7 @@ memory usage: 2.5+ KB</code></pre>
 </div>
 </div>
 </div>
-<p>Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 6.8. It appears that the average test score for focused users is almost 2 points higher than that of distracted users.</p>
+<p>Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 7. It appears that the average test score for focused users is about 2 points higher than that of distracted users.</p>
 </section>
 <section id="naive-bayes-classifier" class="level1">
 <h1>Naive Bayes Classifier</h1>
