@@ -186,3 +186,9 @@ ax.axvline(x=85, color='r')
 
 From this plot, we can see a clear split along PC1. The vertical line on the plot separates the two clusters perfectly. We can see that states to the right of that line belong to one cluster and states to the left of the vertical line lie in the other cluster. Since PC1 explains over 98% of the variance, this approach would make sense.  
 
+# Attributions
+
+1. https://plainenglish.io/blog/9-seaborn-datasets-for-data-science-ml-beginners#3-car-crashes
+2. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
+3. https://www.geeksforgeeks.org/how-to-set-a-seaborn-chart-figure-size/
+

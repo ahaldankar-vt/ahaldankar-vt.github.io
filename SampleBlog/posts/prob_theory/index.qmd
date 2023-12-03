@@ -60,19 +60,19 @@ attention.shape
 [attention['score'].min(), attention['score'].max()]
 ```
 
-It looks like there are 20 subjects total, who were given 3 different tests. From each of these tests, the score of the subjects was computed. The minimum score across all tests was 2.0, while the maximum score was 9.0. Presumably, the test was ranked on a scale of 1 to 10. 
-
-TODO: Find better documentation on this dataset. 
+There are 20 subjects total, who were given 3 different tests. For each of these tests, the score of the subjects was computed. The minimum score across all tests was 2.0, while the maximum score was 9.0.
 
 # Visualizations
 
-Let's now visualize the attention dataset, by plotting the distribution of participant scores.
+Let's now visualize the attention dataset. We will first display a kde plot, that shows the probability distribution of the scores for the focused and divided groups. 
 
 ```{python}
-sns.barplot(data=attention, x='subject', y='score');
+sns.displot(data=attention, x='score', kde=True, hue='attention', stat='density');
 ```
 
-It appears that some subjects performed better than others. Let's visualize which of the subjects were focused and which were distracted. 
+As can be seen by this plot, the probability that a divided participant performed very well (i.e. got a score of 7 or higher) is substantially less than the probability that a focused user performed very well. Also, the probability that focused users performed poorly (i.e. got a score of 4 or lower) is substantially smaller than the probability that distracted users performed poorly. 
+
+It appears that focused users, on average, received better scores than non-focused users. Let's try to better visualize this trend by plotting subjects and their corresponding scores, and color-coding whether the subject was focused or not. 
 
 ```{python}
 sns.barplot(data=attention, x='subject', y='score', hue='attention');
@@ -85,14 +85,32 @@ avg_scores = pd.DataFrame(attention.groupby('attention').mean()['score'])
 avg_scores
 ```
 
-Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 6.8. It appears that the average test score for focused users is almost 2 points higher than that of distracted users.  
+Indeed, we can see that the average score for divided users is around 5, while the average score for focused users is approximately 7. It appears that the average test score for focused users is about 2 points higher than that of distracted users.  
+
+
+# Naive Bayes Theory
+
+Before getting hands-on experience using the Naive Bayes Classifier, it will be useful to explain the theory underlying this classifier. 
+
+Naive Bayes is based on Bayes' Rule, which can be stated as follows: 
+
+$$\huge{P(A|B) = \frac{P(A) P(B|A)}{P(B)}}$$
+
+Where  
+P(A|B) is the probability that event A occurs given that event B has already occurred.  
+P(A) is the probability of event A occurring.  
+P(B|A) is the probability that event B occurs given that event A has already occurred.  
+P(B) is the probability of event B occurring. 
+
+A Naive Bayes Classifier is designed to classify a given observation into one of several classes. In order to do so, the Naive Bayes Classifier relies heavily on Bayes theorem. Specifically, given a specific feature of the dataset, the Naive Bayes Classifier computes the probability of the observation falling into each of the different classes based on the value of the feature. Then, this classifier takes the highest such probability, and classifies the observation as falling into the class which matches with that largest probability. 
+
+One important consideration is that the Naive Bayes classifier assumes that features are conditionally independent of one another. This means that when using multiple features in order to predict which class an observation falls into, the Naive Bayes Classifier assumes that none of the features depend on each other. 
 
 # Naive Bayes Classifier
 
-Let's now use a Naive Bayes classifier to predict whether a participant is distracted or not based on their score. We can drop the other columns, since they won't be relevant.  
+Let's now use a Naive Bayes classifier to predict whether a participant is distracted or not based on their score. We can drop the other columns, since they won't be relevant. 
 
 ```{python}
-#| collapsed: true
 attention_nb = attention[['attention', 'score']]
 attention_nb.head()
 ```
@@ -152,4 +170,14 @@ cm.plot();
 ```
 
 It appears that the Gaussian NB classifier over-predicted samples as being focused. The three samples in the upper right quadrant were predicted as being focused, but were in fact divided. 
+
+# Attributions
+
+1. https://seaborn.pydata.org/generated/seaborn.barplot.html
+2. https://www.geeksforgeeks.org/python-pandas-dataframe-groupby/
+3. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html
+4. https://scikit-learn.org/stable/modules/naive_bayes.html
+5. https://www.datacamp.com/tutorial/naive-bayes-scikit-learn
+6. https://corporatefinanceinstitute.com/resources/data-science/bayes-theorem/
+7. https://www.bayesrulesbook.com/chapter-14
 
