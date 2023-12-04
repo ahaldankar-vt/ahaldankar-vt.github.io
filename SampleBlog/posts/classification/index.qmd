@@ -1,6 +1,6 @@
 ---
 title: This is a blog post on classification
-date: '2022-10-21'
+date: '2023-10-03'
 categories:
   - Classification
 description: 'This is a blog post on classification. Specifically, the SVM classifier is used.'
