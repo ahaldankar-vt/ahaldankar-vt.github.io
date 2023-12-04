@@ -22,7 +22,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# sns.get_dataset_names()
 diamonds = sns.load_dataset('diamonds')
 diamonds.head()
 ```
@@ -94,7 +93,7 @@ It seems there is a lot of noise that somewhat degrades the quality of the plot.
 Since the linear regression model will be easier to construct with quantitative variables, we will not include the following features of the diamond into our linear model. However, it may be worthwhile to see what impact they have on price. We can first examine how the diamond cut affects price through a bar chart. 
 
 ```{python}
-sns.barplot(data=diamonds, x="cut", y="price")
+sns.barplot(data=diamonds, x="cut", y="price", palette="tab10");
 ```
 
 Interestingly, it appears that the quality of the cut doesn't have much to do with the price. In fact, ideal cuts appear to have the lowest aggregated price. 
@@ -102,7 +101,7 @@ Interestingly, it appears that the quality of the cut doesn't have much to do wi
 Let's also examine if the color of the diamond is a good predictor of price. 
 
 ```{python}
-sns.barplot(data=diamonds, x="color", y="price")
+sns.barplot(data=diamonds, x="color", y="price", palette="tab10");
 ```
 
 Here, we see that as the color changes from D (worst) to J (best), the price tends to increase. 
@@ -193,23 +192,7 @@ ax.set_xlim(xmin=3,xmax=12);
 ax.set_ylim(ymin=1,ymax=8);
 ```
 
-From the three plots above, it appears that as the dimensions of the diamond increase, the price tends to increase as well. Let's plot all three dimensions, along with price, to get a comprehensive view of how the dimensions affect price. 
-
-```{python}
-import matplotlib.pyplot as plt
-fig = plt.figure(figsize=(8,8))
-ax = fig.add_subplot(projection='3d')
-
-scatter = ax.scatter(diamonds['x'], diamonds['y'], diamonds['z'], marker='o', c=diamonds['price'])
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_zlabel('z')
-ax.set_zlim3d(zmax=5)
-fig.colorbar(scatter, label="Price", orientation='horizontal')
-plt.show()
-```
-
-The 3-D plot above supports our conclusion. 
+From the three plots above, it appears that as the dimensions of the diamond increase, the price tends to increase as well.
 
 # Constructing a Nonlinear Model
 
@@ -242,7 +225,6 @@ Our decision tree has an R^2 value of around 83%. It looks like it performs simi
 Now, let's try visualizing our predictions against the true labels. We'll just focus on the first 100 data points in order to make our plot less noisy. 
 
 ```{python}
-# ax = range(len(ytest))
 x_data = range(100)
 plt.plot(x_data, y_pred_nl[:100], label="predicted diamond price")
 plt.plot(x_data, y_test_nl[:100], label="actual diamond price")

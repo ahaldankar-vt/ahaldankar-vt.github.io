@@ -55,22 +55,31 @@ crashes['ins_premium'].min()
 crashes['ins_losses'].min()
 ```
 
-It looks like the data is valid, so we are good to proceed. Let's first visualize the total column for each of the states. To make the barplot less cluttered, let's focus on the 5 states with the highest number of crashes and the 5 states with the lowest number of crashes. 
+It looks like the data is valid, so we are good to proceed. Let's first visualize the total column for each of the states. To make the barplot less cluttered, let's focus on the states with the highest number of crashes and the states with the lowest number of crashes. To break ties, we can do a secondary sort by abbreviation. 
 
 ```{python}
-crashes_sorted = crashes.sort_values('total', ascending=False)
-crashes_sorted
+crashes_sorted = crashes.sort_values(['total', 'abbrev'], ascending=False) 
+crashes_sorted[:10]
+```
+
+It looks like MT and KY have the same value in the 'total' column, so we can make KY the last state we display on the barplot. 
+
+```{python}
 fig, ax = plt.subplots(figsize=(10, 7))
-sns.barplot(data=crashes_sorted[:5], x='abbrev', y='total', ax=ax)
+sns.barplot(data=crashes_sorted[:6], x='abbrev', y='total', ax=ax, palette="tab10")
 
 plt.show()
 ```
 
-The states which have the highest number of crashes are South Carolina, North Dakota, West Virginia, Arkansas, and Kentucky. 
+The states which have the highest number of crashes are South Carolina, North Dakota, West Virginia, Arkansas, Montana, and Kentucky. 
+
+```{python}
+crashes_sorted[-10:]
+```
 
 ```{python}
 fig, ax = plt.subplots(figsize=(10, 7))
-sns.barplot(data=crashes_sorted[-5:], x='abbrev', y='total')
+sns.barplot(data=crashes_sorted[-5:], x='abbrev', y='total', palette="tab10")
 
 plt.show()
 ```
@@ -118,12 +127,6 @@ for ind,row in crashes2D.iterrows():
     ax.text(row[0], row[1], ind)
 ax.set_xlabel('PCA Component 1 (98.67%)');
 ax.set_ylabel('PCA Component 2 (1.16%)');
-
-# crashes2D
-# for idx, row in crashes2D_df.iterrows():
-#    print(idx)
-#    print(row)
-    # ax.annotate(row['label_var'], (row['x_var'], row['y_var']))
 ```
 
 The plot above labels the states and plots them according to the two principal components. Even though accident totals is just one dimension, we can see that West Virginia, Arkansas, and Kentucky, three of the states that had high totals, are in the same approximate area.  
@@ -147,8 +150,6 @@ plt.xlabel("$k$");
 plt.ylabel("Inertia");
 plt.grid()
 plt.show()
-# plt.annotate("", xy=(4, inertias[3]), xytext=(4.45, 650),
-#              arrowprops=dict(facecolor='black', shrink=0.1))
 ```
 
 From this plot, it appears that in fact k=2 is the inflection point of the graph. Let's also construct a silhouette plot. 

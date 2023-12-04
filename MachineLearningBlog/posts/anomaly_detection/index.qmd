@@ -105,7 +105,6 @@ for ind,row in crashes2D.iterrows():
     ax.text(row[0], row[1], ind)
 ax.set_xlabel('PCA Component 1 (98.67%)');
 ax.set_ylabel('PCA Component 2 (1.16%)');
-# ax.axvline(x=85, color='r')
 ```
 
 Let's try to get a list of the outliers identified by the DBSCAN algorithm. 
