@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "SampleBlog",
+    "title": "Machine Learning Blog",
     "section": "",
-    "text": "This is a blog post on probability theory and random variables.\n\n\n\n\n\n\n\nProbability Theory, Random Variables, Naive Bayes\n\n\n\n\nThis is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.\n\n\n\n\n\n\nNov 3, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on anomaly detection.\n\n\n\n\n\n\n\nAnomaly Detection\n\n\n\n\nThis is a blog post on anomaly detection. Specifically, we will analyze the DBSCAN algorithm.\n\n\n\n\n\n\nOct 31, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on clustering\n\n\n\n\n\n\n\nClustering\n\n\n\n\nThis is a blog post on clustering.\n\n\n\n\n\n\nOct 29, 2022\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on classification\n\n\n\n\n\n\n\nClassification\n\n\n\n\nThis is a blog post on classification. Specifically, the SVM classifier is used.\n\n\n\n\n\n\nOct 21, 2022\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on regression.\n\n\n\n\n\n\n\nLinear Regression\n\n\nNonlinear Regression\n\n\n\n\nThis is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.\n\n\n\n\n\n\nJun 1, 2022\n\n\n\n\n\n\nNo matching items\n\nReusehttps://creativecommons.org/licenses/by-sa/4.0/"
+    "text": "This is a blog post on probability theory and random variables.\n\n\n\n\n\n\n\nProbability Theory, Random Variables, Naive Bayes\n\n\n\n\nThis is a blog post on probability theory. Specifically, the Naive Bayes classifier is used.\n\n\n\n\n\n\nNov 3, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on anomaly detection.\n\n\n\n\n\n\n\nAnomaly Detection\n\n\n\n\nThis is a blog post on anomaly detection. Specifically, we will analyze the DBSCAN algorithm.\n\n\n\n\n\n\nOct 31, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on clustering\n\n\n\n\n\n\n\nClustering\n\n\n\n\nThis is a blog post on clustering.\n\n\n\n\n\n\nOct 29, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on regression.\n\n\n\n\n\n\n\nLinear Regression\n\n\nNonlinear Regression\n\n\n\n\nThis is a blog post on regression. I will use the Seaborn Diamonds dataset to predict the price of a diamond based on other features about it.\n\n\n\n\n\n\nOct 21, 2023\n\n\n\n\n\n\n  \n\n\n\n\nThis is a blog post on classification\n\n\n\n\n\n\n\nClassification\n\n\n\n\nThis is a blog post on classification. Specifically, the SVM classifier is used.\n\n\n\n\n\n\nOct 3, 2023\n\n\n\n\n\n\nNo matching items\n\nReusehttps://creativecommons.org/licenses/by-sa/4.0/"
   },
   {
     "objectID": "posts/prob_theory/index.html",
@@ -30,9 +30,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "About Me",
     "section": "",
-    "text": "About this blog"
+    "text": "Hi, I am Atharva Haldankar, a MS student at Virginia Tech. My research interests include Applied Cryptography and Privacy-Preserving Machine Learning (PPML). In my spare time, I enjoy spending time in the outdoors and playing board games with my family. One of my favorite board games is the Settlers of Catan."
   },
   {
     "objectID": "posts/classification/index.html",
