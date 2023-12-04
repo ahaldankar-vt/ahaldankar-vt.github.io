@@ -353,10 +353,10 @@ memory usage: 3.3+ KB</code></pre>
 <pre><code>82.75</code></pre>
 </div>
 </div>
-<p>It looks like the data is valid, so we are good to proceed. Let’s first visualize the total column for each of the states. To make the barplot less cluttered, let’s focus on the 5 states with the highest number of crashes and the 5 states with the lowest number of crashes.</p>
+<p>It looks like the data is valid, so we are good to proceed. Let’s first visualize the total column for each of the states. To make the barplot less cluttered, let’s focus on the states with the highest number of crashes and the states with the lowest number of crashes. To break ties, we can do a secondary sort by abbreviation.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>crashes_sorted <span class="op">=</span> crashes.sort_values(<span class="st">'total'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>crashes_sorted.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>crashes_sorted <span class="op">=</span> crashes.sort_values([<span class="st">'total'</span>, <span class="st">'abbrev'</span>], ascending<span class="op">=</span><span class="va">False</span>) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>crashes_sorted[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -377,17 +377,6 @@ memory usage: 3.3+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
-<td>23.9</td>
-<td>5.497</td>
-<td>10.038</td>
-<td>23.661</td>
-<td>20.554</td>
-<td>688.75</td>
-<td>109.72</td>
-<td>ND</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">40</td>
 <td>23.9</td>
 <td>9.082</td>
@@ -397,6 +386,17 @@ memory usage: 3.3+ KB</code></pre>
 <td>858.97</td>
 <td>116.29</td>
 <td>SC</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">34</td>
+<td>23.9</td>
+<td>5.497</td>
+<td>10.038</td>
+<td>23.661</td>
+<td>20.554</td>
+<td>688.75</td>
+<td>109.72</td>
+<td>ND</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">48</td>
@@ -431,29 +431,222 @@ memory usage: 3.3+ KB</code></pre>
 <td>85.15</td>
 <td>MT</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>21.4</td>
+<td>4.066</td>
+<td>4.922</td>
+<td>16.692</td>
+<td>16.264</td>
+<td>872.51</td>
+<td>137.13</td>
+<td>KY</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>20.5</td>
+<td>7.175</td>
+<td>6.765</td>
+<td>14.965</td>
+<td>20.090</td>
+<td>1281.55</td>
+<td>194.78</td>
+<td>LA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">36</td>
+<td>19.9</td>
+<td>6.368</td>
+<td>5.771</td>
+<td>18.308</td>
+<td>18.706</td>
+<td>881.51</td>
+<td>178.86</td>
+<td>OK</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>19.5</td>
+<td>4.095</td>
+<td>5.655</td>
+<td>15.990</td>
+<td>15.795</td>
+<td>767.91</td>
+<td>155.57</td>
+<td>TN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>19.4</td>
+<td>7.760</td>
+<td>7.372</td>
+<td>17.654</td>
+<td>16.878</td>
+<td>1004.75</td>
+<td>156.83</td>
+<td>TX</td>
+</tr>
 </tbody>
 </table>
 
 </div>
 </div>
 </div>
+<p>It looks like MT and KY have the same value in the ‘total’ column, so we can make KY the last state we display on the barplot.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>crashes_sorted[:<span class="dv">5</span>], x<span class="op">=</span><span class="st">'abbrev'</span>, y<span class="op">=</span><span class="st">'total'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>crashes_sorted[:<span class="dv">6</span>], x<span class="op">=</span><span class="st">'abbrev'</span>, y<span class="op">=</span><span class="st">'total'</span>, ax<span class="op">=</span>ax, palette<span class="op">=</span><span class="st">"tab10"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-8-output-1.png" width="808" height="580"></p>
 </div>
 </div>
-<p>The states which have the highest number of crashes are South Carolina, North Dakota, West Virginia, Arkansas, and Kentucky.</p>
+<p>The states which have the highest number of crashes are South Carolina, North Dakota, West Virginia, Arkansas, Montana, and Kentucky.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>crashes_sorted[<span class="op">-</span><span class="dv">5</span>:], x<span class="op">=</span><span class="st">'abbrev'</span>, y<span class="op">=</span><span class="st">'total'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>crashes_sorted[<span class="op">-</span><span class="dv">10</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total</th>
+<th data-quarto-table-cell-role="th">speeding</th>
+<th data-quarto-table-cell-role="th">alcohol</th>
+<th data-quarto-table-cell-role="th">not_distracted</th>
+<th data-quarto-table-cell-role="th">no_previous</th>
+<th data-quarto-table-cell-role="th">ins_premium</th>
+<th data-quarto-table-cell-role="th">ins_losses</th>
+<th data-quarto-table-cell-role="th">abbrev</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>12.0</td>
+<td>4.200</td>
+<td>3.360</td>
+<td>10.920</td>
+<td>10.680</td>
+<td>878.41</td>
+<td>165.63</td>
+<td>CA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>11.6</td>
+<td>4.060</td>
+<td>3.480</td>
+<td>10.092</td>
+<td>9.628</td>
+<td>746.54</td>
+<td>120.21</td>
+<td>NH</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>11.3</td>
+<td>4.859</td>
+<td>1.808</td>
+<td>9.944</td>
+<td>10.848</td>
+<td>809.38</td>
+<td>109.48</td>
+<td>UT</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">30</td>
+<td>11.2</td>
+<td>1.792</td>
+<td>3.136</td>
+<td>9.632</td>
+<td>8.736</td>
+<td>1301.52</td>
+<td>159.85</td>
+<td>NJ</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">39</td>
+<td>11.1</td>
+<td>3.774</td>
+<td>4.218</td>
+<td>10.212</td>
+<td>8.769</td>
+<td>1148.99</td>
+<td>148.58</td>
+<td>RI</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>10.8</td>
+<td>4.968</td>
+<td>3.888</td>
+<td>9.396</td>
+<td>8.856</td>
+<td>1068.73</td>
+<td>167.02</td>
+<td>CT</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">47</td>
+<td>10.6</td>
+<td>4.452</td>
+<td>3.498</td>
+<td>8.692</td>
+<td>9.116</td>
+<td>890.03</td>
+<td>111.62</td>
+<td>WA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>9.6</td>
+<td>2.208</td>
+<td>2.784</td>
+<td>8.448</td>
+<td>8.448</td>
+<td>777.18</td>
+<td>133.35</td>
+<td>MN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>8.2</td>
+<td>1.886</td>
+<td>2.870</td>
+<td>7.134</td>
+<td>6.560</td>
+<td>1011.14</td>
+<td>135.63</td>
+<td>MA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>5.9</td>
+<td>2.006</td>
+<td>1.593</td>
+<td>5.900</td>
+<td>5.900</td>
+<td>1273.89</td>
+<td>136.05</td>
+<td>DC</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>crashes_sorted[<span class="op">-</span><span class="dv">5</span>:], x<span class="op">=</span><span class="st">'abbrev'</span>, y<span class="op">=</span><span class="st">'total'</span>, palette<span class="op">=</span><span class="st">"tab10"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-9-output-1.png" width="808" height="577"></p>
+<p><img src="index_files/figure-html/cell-10-output-1.png" width="808" height="577"></p>
 </div>
 </div>
 <p>On the other end of the spectrum, Connecticut, Washington state, Minnesota, Massachussetts, and DC have the fewest crashes.</p>
@@ -461,21 +654,21 @@ memory usage: 3.3+ KB</code></pre>
 <section id="dimensionality-reduction" class="level1">
 <h1>Dimensionality Reduction</h1>
 <p>We have 7 columns in our dataset, not including the state abbreviation. With so many columns, it is hard to visualize how similar data points are to one another. Therefore, we will need to perform dimensionality reduction before we can visualize similarities between different data points.</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the abbreviation column, as it is not helpful in comparing data points. </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev <span class="op">=</span> crashes.set_index(<span class="st">'abbrev'</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev.loc[:, crashes_without_abbrev.columns <span class="op">!=</span> <span class="st">'abbrev'</span>]</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>crashes2D <span class="op">=</span> pca.fit_transform(crashes_without_abbrev)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>crashes2D <span class="op">=</span> pd.DataFrame(crashes2D, index<span class="op">=</span>crashes_without_abbrev.index)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>pca.components_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the abbreviation column, as it is not helpful in comparing data points. </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev <span class="op">=</span> crashes.set_index(<span class="st">'abbrev'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev.loc[:, crashes_without_abbrev.columns <span class="op">!=</span> <span class="st">'abbrev'</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>crashes_without_abbrev</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>crashes2D <span class="op">=</span> pca.fit_transform(crashes_without_abbrev)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>crashes2D <span class="op">=</span> pd.DataFrame(crashes2D, index<span class="op">=</span>crashes_without_abbrev.index)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>pca.components_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([[-4.58058550e-03, -8.80126113e-04, -1.65125559e-03,
         -4.40130754e-03, -3.28217700e-03,  9.96137961e-01,
          8.74901966e-02],
@@ -485,29 +678,29 @@ memory usage: 3.3+ KB</code></pre>
 </div>
 </div>
 <p>Now, let’s see how much of the variance in the data is explained by the first 2 PCA dimensions.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pca.explained_variance_ratio_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pca.explained_variance_ratio_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([0.98671551, 0.01155058])</code></pre>
 </div>
 </div>
 <p>The first component explains the vast majority of the variance (over 98%), while the second column explains almost all of the remaining variance.</p>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">-</span> pca.explained_variance_ratio_.<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">-</span> pca.explained_variance_ratio_.<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>0.001733914130986669</code></pre>
 </div>
 </div>
 <p>In fact, only around 0.17% of the variance is not explained by these first two components.<br>
 Now, let’s visualize the data using a PCA plot.</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> crashes2D.plot.scatter(x<span class="op">=</span><span class="dv">0</span>, y<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ind,row <span class="kw">in</span> crashes2D.iterrows():</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    ax.text(row[<span class="dv">0</span>], row[<span class="dv">1</span>], ind)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'PCA Component 1 (98.67%)'</span>)<span class="op">;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'PCA Component 2 (1.16%)'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> crashes2D.plot.scatter(x<span class="op">=</span><span class="dv">0</span>, y<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ind,row <span class="kw">in</span> crashes2D.iterrows():</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    ax.text(row[<span class="dv">0</span>], row[<span class="dv">1</span>], ind)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'PCA Component 1 (98.67%)'</span>)<span class="op">;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'PCA Component 2 (1.16%)'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-13-output-1.png" width="819" height="577"></p>
+<p><img src="index_files/figure-html/cell-14-output-1.png" width="819" height="577"></p>
 </div>
 </div>
 <p>The plot above labels the states and plots them according to the two principal components. Even though accident totals is just one dimension, we can see that West Virginia, Arkansas, and Kentucky, three of the states that had high totals, are in the same approximate area.</p>
@@ -515,63 +708,63 @@ Now, let’s visualize the data using a PCA plot.</p>
 <section id="elbow-curve" class="level2">
 <h2 class="anchored" data-anchor-id="elbow-curve">Elbow Curve</h2>
 <p>Let’s draw an elbow curve to visualize how the inertia drops as the number of clusters increases.</p>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>kmeans_per_k <span class="op">=</span> [KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>).fit(crashes_without_abbrev)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> [model.inertia_ <span class="cf">for</span> model <span class="kw">in</span> kmeans_per_k]</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>), inertias, <span class="st">"bo-"</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$k$"</span>)<span class="op">;</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Inertia"</span>)<span class="op">;</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>kmeans_per_k <span class="op">=</span> [KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>).fit(crashes_without_abbrev)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>inertias <span class="op">=</span> [model.inertia_ <span class="cf">for</span> model <span class="kw">in</span> kmeans_per_k]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>), inertias, <span class="st">"bo-"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$k$"</span>)<span class="op">;</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Inertia"</span>)<span class="op">;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-14-output-1.png" width="663" height="333"></p>
+<p><img src="index_files/figure-html/cell-15-output-1.png" width="663" height="333"></p>
 </div>
 </div>
 <p>From this plot, it appears that in fact k=2 is the inflection point of the graph. Let’s also construct a silhouette plot.</p>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>silhouette_scores <span class="op">=</span> [silhouette_score(crashes_without_abbrev, model.labels_)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">for</span> model <span class="kw">in</span> kmeans_per_k[<span class="dv">1</span>:]]</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">10</span>), silhouette_scores, <span class="st">"bo-"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$k$"</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Silhouette score"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>silhouette_scores <span class="op">=</span> [silhouette_score(crashes_without_abbrev, model.labels_)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">for</span> model <span class="kw">in</span> kmeans_per_k[<span class="dv">1</span>:]]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">10</span>), silhouette_scores, <span class="st">"bo-"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$k$"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Silhouette score"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-15-output-1.png" width="680" height="282"></p>
+<p><img src="index_files/figure-html/cell-16-output-1.png" width="680" height="282"></p>
 </div>
 </div>
 <p>It appears that 2 clusters is the best choice according to both the elbow curve and the silhouette score. There doesn’t appear to be a good reason to not choose 2 clusters, so let’s proceed with the KMeans algorithm using 2 clusters.</p>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> kmeans.fit_predict(crashes_without_abbrev)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> kmeans.fit_predict(crashes_without_abbrev)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>array([0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1,
        1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
        0, 0, 0, 0, 1, 0, 0], dtype=int32)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> crashes2D.plot.scatter(x<span class="op">=</span><span class="dv">0</span>, y<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>), c<span class="op">=</span>y_pred, cmap<span class="op">=</span><span class="st">'viridis'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ind,row <span class="kw">in</span> crashes2D.iterrows():</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    ax.text(row[<span class="dv">0</span>], row[<span class="dv">1</span>], ind)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'PCA Component 1 (98.67%)'</span>)<span class="op">;</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'PCA Component 2 (1.16%)'</span>)<span class="op">;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="dv">85</span>, color<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;matplotlib.lines.Line2D at 0x7f6b896ae520&gt;</code></pre>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> crashes2D.plot.scatter(x<span class="op">=</span><span class="dv">0</span>, y<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>), c<span class="op">=</span>y_pred, cmap<span class="op">=</span><span class="st">'viridis'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ind,row <span class="kw">in</span> crashes2D.iterrows():</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    ax.text(row[<span class="dv">0</span>], row[<span class="dv">1</span>], ind)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'PCA Component 1 (98.67%)'</span>)<span class="op">;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'PCA Component 2 (1.16%)'</span>)<span class="op">;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="dv">85</span>, color<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>&lt;matplotlib.lines.Line2D at 0x7f7fc365b070&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-17-output-2.png" width="764" height="582"></p>
+<p><img src="index_files/figure-html/cell-18-output-2.png" width="764" height="582"></p>
 </div>
 </div>
 <p>From this plot, we can see a clear split along PC1. The vertical line on the plot separates the two clusters perfectly. We can see that states to the right of that line belong to one cluster and states to the left of the vertical line lie in the other cluster. Since PC1 explains over 98% of the variance, this approach would make sense.</p>
