@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: profile.jpg
+image: HokiePassport_Pic.jpg
 about:
   template: jolla
   links:
