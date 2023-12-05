@@ -316,7 +316,7 @@ memory usage: 3.0 MB</code></pre>
 <pre><code>False</code></pre>
 </div>
 </div>
-<p>Looks like this dataset doesn’t contain any null values, so we don’t have to interpolate missing values.</p>
+<p>It looks like this dataset doesn’t contain any null values, so we don’t have to interpolate missing values.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's find the minimum and maximum price for any individual diamond. </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>[diamonds[<span class="st">'price'</span>].<span class="bu">min</span>(), diamonds[<span class="st">'price'</span>].<span class="bu">max</span>()]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -368,7 +368,7 @@ Let’s now get a better sense for the price variability by plotting the diamond
 </div>
 </div>
 <p>This visualization gives us further insight into the price of the diamonds. It seems that most of the diamonds are on the low end, but there are a few very expensive diamonds.</p>
-<p>Now, let’s identify which factors most affect a given diamond’s price. First, let’s identify what factor the diamond carat (weight) has on price. We can visualize this relationship through a scatterplot.</p>
+<p>Now, let’s identify which factors most affect a given diamond’s price. First, let’s identify what effect the diamond carat (weight) has on price. We can visualize this relationship through a scatterplot.</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>diamonds, x<span class="op">=</span><span class="st">"carat"</span>, y<span class="op">=</span><span class="st">"price"</span>, size<span class="op">=</span><span class="dv">1</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, edgecolor<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -459,7 +459,7 @@ Let’s now get a better sense for the price variability by plotting the diamond
 <p><img src="index_files/figure-html/cell-19-output-1.png" width="585" height="429"></p>
 </div>
 </div>
-<p>We can immediately see that as the diamond carat increases, the price tends to increase. This can be established due to the darker dots beginning from ~1 carat and extending until ~5 carats. The relationship between depth and price is less apparent.</p>
+<p>We can immediately see that as the diamond carat value increases, the price tends to increase. This can be established by the darker dots beginning from ~1 carat and extending until ~5 carats. The relationship between depth and price is less apparent.</p>
 <p>Now, let’s visualize the relationship between the dimensions of the diamond (x, y, z) and price. We can begin by visualizing the price values between each pair of the diamond’s dimensions (e.g.&nbsp;x vs.&nbsp;y, x vs.&nbsp;z, and y vs.&nbsp;z).</p>
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(data<span class="op">=</span>diamonds, x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>, hue<span class="op">=</span><span class="st">"price"</span>, size<span class="op">=</span><span class="st">"price"</span>)</span>
@@ -520,7 +520,7 @@ Let’s now get a better sense for the price variability by plotting the diamond
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>x_data <span class="op">=</span> <span class="bu">range</span>(<span class="dv">100</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x_data, y_pred_nl[:<span class="dv">100</span>], label<span class="op">=</span><span class="st">"predicted diamond price"</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x_data, y_test_nl[:<span class="dv">100</span>], label<span class="op">=</span><span class="st">"actual diamond price"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"actual diamond price and diamond price comparison"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"actual diamond price and predicted diamond price comparison"</span>)</span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'price observation index'</span>)</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'price value'</span>)</span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>,fancybox<span class="op">=</span><span class="va">True</span>, shadow<span class="op">=</span><span class="va">True</span>)</span>

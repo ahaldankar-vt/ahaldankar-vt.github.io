@@ -305,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Above is a plot which can help us better visualize where states lie along the two principal component axes.</p>
-<p>First, let’s look for potential outliers by computing the Z-scores on our dataframe. Any states with z-score values that are larger than 2 or smaller than -2 are potential outliers.</p>
+<p>First, let’s look for potential outliers by computing the z-scores on our dataframe. Any states with z-score values that are larger than 2 or smaller than -2 are potential outliers.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>norm_crashes <span class="op">=</span> (crashes_without_abbrev <span class="op">-</span> crashes_without_abbrev.mean()) <span class="op">/</span> crashes_without_abbrev.std()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>norm_crashes.head() <span class="co"># As we can see, the data has been normalized. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>However, picking an arbitrary z-score threshold to detect outliers is a somewhat crude method. Let’s now use the DBSCAN algorithm to identify outliers.</p>
 <section id="dbscan-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="dbscan-algorithm">DBSCAN Algorithm</h2>
-<p>Now, we are ready to use the DBScan algorithm to identify the outlier states. This algorithm takes in two parameters: eps and min_samples. This algorithm finds core points and then expands outwards from those core points to form clusters.</p>
+<p>Now, we are ready to use the DBSCAN algorithm to identify the outlier states. This algorithm takes in two parameters: eps and min_samples. This algorithm finds core points and then expands outwards from those core points to form clusters.</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="dv">30</span>, min_samples<span class="op">=</span><span class="dv">2</span>)</span>
@@ -449,12 +449,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The DBSCAN algorithm, with eps of 30 and min_samples of 2, identifies 6 states/districts above as outliers (‘CT’, ‘DC’, ‘LA’, etc.).</p>
-<p>It seems that from the plot, some states, like LA and MD, are so far from the rest of the states that they are clear outliers. Additionally, even though ‘CT’ might appear close to the red cluster, remember that the PCA plot is a 2-D representation of high-dimensional data. Therefore, ‘CT’ is actually probably much further away from the red cluster in reality.</p>
+<p>It seems that from the plot, some states, like LA and MD, are so far from the rest of the states that they are clear outliers. Additionally, even though CT might appear close to the red cluster, remember that the PCA plot is a 2-D representation of high-dimensional data. Therefore, CT is actually probably much further away from the red cluster in reality.</p>
 </section>
 <section id="gaussian-mixtures-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="gaussian-mixtures-algorithm">Gaussian Mixtures Algorithm</h2>
 <p>The Gaussian Mixture algorithm assumes that the data is a combination of several different normal (Gaussian) distributions. A given data point will be added to a cluster if it has the highest probability of belonging to that cluster as opposed to other clusters.</p>
-<p>Let’s try running the Gaussian Mixture Algorithm in order to determine the anomalies in the crashes dataset. We can tune the value of num_components (i.e.&nbsp;number of clusters). Also, let’s set n_inits to be 10.</p>
+<p>Let’s try running the Gaussian Mixture Algorithm in order to determine the anomalies in the crashes dataset. We can tune the value of num_components (i.e.&nbsp;number of clusters). Also, let’s set n_init to be 10.</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.mixture <span class="im">import</span> GaussianMixture</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gm <span class="op">=</span> GaussianMixture(n_components<span class="op">=</span><span class="dv">2</span>, n_init<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
